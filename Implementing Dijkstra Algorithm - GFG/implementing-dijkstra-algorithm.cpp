@@ -9,20 +9,21 @@ class Solution
 	//Function to find the shortest distance of all the vertices
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S){
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-        pq.push({S,0});
+        set<pair<int,int>> st;
+        st.insert({S,0});
         vector<int> dis(V,1e9);
         dis[S] = 0;
-      while(!pq.empty()){
-          int n = pq.top().first;
-          int cost = pq.top().second;
-          pq.pop();
+      while(!st.empty()){
+          auto t = *(st.begin());
+          int n = t.first;
+          int cost = t.second;
+          st.erase(t);
           for(auto it : adj[n]){
               int node = it[0];
               int edgeWeight = it[1];
               if(cost + edgeWeight <dis[node]){
                   dis[node] = cost+ edgeWeight;
-                  pq.push({node,dis[node]});
+                  st.insert({node,dis[node]});
               }
           }
       }
