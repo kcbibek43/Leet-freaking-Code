@@ -10,20 +10,24 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S){
         set<pair<int,int>> st;
-        st.insert({S,0});
+        st.insert({0,S});
         vector<int> dis(V,1e9);
         dis[S] = 0;
       while(!st.empty()){
           auto t = *(st.begin());
-          int n = t.first;
-          int cost = t.second;
+          int cost = t.first;
+          int n = t.second;
           st.erase(t);
           for(auto it : adj[n]){
               int node = it[0];
               int edgeWeight = it[1];
-              if(cost + edgeWeight <dis[node]){
+              if(cost + edgeWeight < dis[node]){
+                  if(dis[node] != 1e9){
+                     st.erase({dis[node],node});   
+                  }
+                  
                   dis[node] = cost+ edgeWeight;
-                  st.insert({node,dis[node]});
+                  st.insert({dis[node],node});
               }
           }
       }
