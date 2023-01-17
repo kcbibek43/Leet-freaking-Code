@@ -70,7 +70,7 @@ class Solution {
         for (auto it : stones) {
             int nodeRow = it[0];
             int nodeCol = it[1] + maxRow + 1;
-            ds.unionBySize(nodeRow, nodeCol);
+            ds.unionByRank(nodeRow, nodeCol);
             stoneNodes[nodeRow] = 1;
             stoneNodes[nodeCol] = 1;
         }
